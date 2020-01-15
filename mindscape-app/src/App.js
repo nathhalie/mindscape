@@ -8,35 +8,66 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {showMainMenu: false
+    this.state = {
+      showMainMenu: false,
+      bgColor: '',
+      bgEnergy: '',
+      bgEffects: ''
     };
     this.toggleMainMenu = this.toggleMainMenu.bind(this);
+    this.updateScreenHandler = this.updateScreenHandler.bind(this);
   }
 
   toggleMainMenu() {
     this.setState(
       {
-        showMainMenu: !this.state.showMainMenu
+        showMainMenu: !this.state.showMainMenu //sets showMainMenu to true, to display on the screen! or false. 
       }
     );
   }
 
 
-  updateBackgroundHandler = (event) => {
+  updateColorsHandler = (newBgColor) => {
+    this.setState(
+      {
+        bgColor: newBgColor
+      }
+    )
+  }
 
+  updateEnergyHandler = (newEnergy) => {
+    this.setState(
+      {
+        bgEnergy: newEnergy
+      }
+    )
+  }
+
+  updateEffectsHandler = (newEffect) => {
+    this.setState(
+      {
+        bgEffects: newEffect
+      }
+    )
+  }
+
+  updateScreenHandler() {
+    document.body.style.backgroundColor = this.state.bgColor;
   }
 
   render () {
     return (
       <div>
         <center>
-        <button onClick = {this.toggleMainMenu.bind(this)}>click to launch mindscape</button>
+        <button onClick = {this.toggleMainMenu.bind(this)}>launch: the mindscape</button>
 
         {this.state.showMainMenu ?
           <MainMenu 
             text = 'how im feeling'
-            //goToMoodOptions = {this.toggleMoodOptions.bind(this)}
-            //goToColorOptions = {this.toggleColorOptions.bind(this)}
+            updateColorsHandler = {this.updateColorsHandler}
+            updateEnergyHandler = {this.updateEnergyHandler}
+            updateEffectsHandler = {this.updateEffectsHandler}
+            updateScreenHandler = {this.updateScreenHandler}
           />
         :null
         }
@@ -44,7 +75,6 @@ class App extends Component {
       </div>
     );
   }
-
 }
 
 export default App;

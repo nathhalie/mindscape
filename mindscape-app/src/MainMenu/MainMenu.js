@@ -2,26 +2,6 @@ import React, {Component} from 'react';
 import '../MainMenu/MainMenu.css';
 
 class MainMenu extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            color: '',
-            mood: ''
-        };
-
-      }
-
-    updateColorsHandler = (event) => {
-        this.setState( {
-            
-        })
-    };
-
-    updateMoodHandler = (event) => {
-        this.setState( {
-            
-        })
-    };
 
     render() {
         return (
@@ -29,16 +9,30 @@ class MainMenu extends Component {
                 <div className = 'mainMenu\_inner'>
                     <h1>{this.props.text}</h1>
 
-                    <form>
-                    color:
-                    <input type ="color"/>
+                    <form name = 'mainMenuOptions' onSubmit = {this.props.validateOptionsForm}>
+                        <div className = 'visualOptions'>
+                            visuals:
+                            <input id = "color" 
+                            type = "color" 
+                            onChange = {(e) => this.props.updateColorsHandler(e.target.value)}/>
+                        </div>
 
-                    mood:
-                    <input type = "text" value = {this.state.mood} onChange = {this.updateMoodHandler} />
+                        <div className = 'energyOptions'>
+                            energy:
+                            <input id = "energy" type = "range" onChange = {(e) => this.props.updateEnergyHandler(e.target.value)} />
+                        </div>
+
+                        {/* onChange={(e) => this.props.updateTextCB(e.target.value) */}
+
+                        <div className = 'effectsOptions'>
+                            effects:
+                            <input id = "effects" type = "text" onChange = {(e) => this.props.updateEffectsHandler(e.target.value)} />
+                        </div>
                     </form>
 
-                    <button onClick = {this.props.sendToScreen}>send</button>
-                    <button onClick = {this.props.closeMainMenu}>x</button>
+                    <button id = "sendButton" 
+                    onClick = {this.props.updateScreenHandler} 
+                    style={{backgroundColor:this.props.bgColor}}>send</button>
                 </div>
             </div>
         );
